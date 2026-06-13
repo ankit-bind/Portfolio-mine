@@ -4,14 +4,13 @@ const assetsDir = './dist/client/assets';
 const files = fs.readdirSync(assetsDir);
 
 const cssFile = files.find(f => f.startsWith('styles-') && f.endsWith('.css'));
+const mainJsFile = files.find(f => f.startsWith('main-') && f.endsWith('.js'));
 
-// Find the main JS entry chunk (the large one that contains React + router bootstrap)
-const jsFiles = files.filter(f => f.endsWith('.js'));
-const mainJsFile = jsFiles.reduce((largest, current) => {
-  const largestSize = fs.statSync(`${assetsDir}/${largest}`).size;
-  const currentSize = fs.statSync(`${assetsDir}/${current}`).size;
-  return currentSize > largestSize ? current : largest;
-}, jsFiles[0]);
+if (!mainJsFile) {
+  console.error('ERROR: Could not find main-*.js entry point in dist/client/assets');
+  console.error('Available files:', files.join(', '));
+  process.exit(1);
+}
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -26,7 +25,7 @@ const html = `<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="app"></div>
+  <div id="root"></div>
   <script type="module" src="/assets/${mainJsFile}"></script>
 </body>
 </html>`;
