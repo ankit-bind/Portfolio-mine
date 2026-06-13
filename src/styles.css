@@ -1,0 +1,178 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand semantic tokens */
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-accent-warm: var(--accent-warm);
+  --color-accent-cool: var(--accent-cool);
+  --color-muted-warm: var(--muted-warm);
+
+  /* shadcn aliases mapped to the editorial palette */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Paper (light) — sage canvas + cream surface + plum ink */
+  --background: oklch(0.66 0.03 145);          /* sage #7E9180 */
+  --surface:    oklch(0.95 0.025 85);          /* cream #F6F1E3 */
+  --ink:        oklch(0.28 0.07 320);          /* aubergine #352640 */
+  --accent-warm: oklch(0.75 0.13 65);          /* terracotta #E8A85C */
+  --accent-cool: oklch(0.45 0.04 165);         /* forest teal #51695B */
+  --muted-warm:  oklch(0.62 0.02 75);          /* warm grey #8C8475 */
+
+  /* shadcn role aliases — body lives on cream cards, not on sage */
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--surface);
+  --secondary: oklch(0.92 0.02 85);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.92 0.02 85);
+  --muted-foreground: var(--muted-warm);
+  --accent: var(--accent-warm);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.55 0.18 27);
+  --destructive-foreground: var(--surface);
+  --border: oklch(0.28 0.07 320 / 0.16);
+  --input: oklch(0.28 0.07 320 / 0.22);
+  --ring: var(--accent-warm);
+}
+
+.dark {
+  /* Night */
+  --background: oklch(0.22 0.04 320);          /* deep aubergine #241A2B */
+  --surface:    oklch(0.27 0.04 320);          /* plum card #2F2438 */
+  --ink:        oklch(0.95 0.025 85);          /* cream text */
+  --accent-warm: oklch(0.75 0.13 65);
+  --accent-cool: oklch(0.62 0.04 160);
+  --muted-warm:  oklch(0.72 0.015 75);
+
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: oklch(0.22 0.04 320);
+  --secondary: oklch(0.32 0.04 320);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.32 0.04 320);
+  --muted-foreground: var(--muted-warm);
+  --accent: var(--accent-warm);
+  --accent-foreground: oklch(0.22 0.04 320);
+  --destructive: oklch(0.65 0.19 22);
+  --destructive-foreground: var(--ink);
+  --border: oklch(0.95 0.025 85 / 0.12);
+  --input: oklch(0.95 0.025 85 / 0.18);
+  --ring: var(--accent-warm);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+
+  html, body { background-color: var(--color-background); color: var(--color-foreground); }
+  body { font-family: var(--font-sans); font-feature-settings: "ss01", "cv11"; }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    font-feature-settings: "ss01";
+  }
+
+  ::selection { background: var(--color-accent-warm); color: var(--color-ink); }
+}
+
+@utility pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  background: transparent;
+  transition: background 250ms ease, color 250ms ease, transform 250ms ease;
+  cursor: pointer;
+  &:hover { background: var(--color-accent-warm); color: var(--color-ink); transform: translateY(-1px); }
+}
+
+@utility pill-btn-filled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-surface);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: background 250ms ease, color 250ms ease, transform 250ms ease;
+  cursor: pointer;
+  &:hover { background: var(--color-accent-warm); color: var(--color-ink); transform: translateY(-1px); }
+}
+
+@utility editorial-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  transition: border-color 250ms ease, transform 250ms ease;
+  &:hover { border-color: var(--color-ink); }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted-warm);
+}
