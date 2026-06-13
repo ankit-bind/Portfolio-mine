@@ -1,4 +1,5 @@
 {
+  "buildCommand": "npm install && npx vite build --config vite.static.config.ts && node scripts/postbuild.js",
   "outputDirectory": "dist/client",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
